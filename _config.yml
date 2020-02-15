@@ -117,4 +117,8 @@ symbols_count_time:
 # Baidu Analytics ID
 baidu_analytics: ffd24f27718c3427c6d1a32fd5d479e2
 
-
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
