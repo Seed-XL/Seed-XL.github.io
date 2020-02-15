@@ -114,3 +114,7 @@ symbols_count_time:
   total_time: true
   exclude_codeblock: false
 
+# Baidu Analytics ID
+baidu_analytics: ffd24f27718c3427c6d1a32fd5d479e2
+
+
