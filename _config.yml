@@ -5,7 +5,7 @@
 # Site
 title: Seed-XL的自留地
 subtitle: ''
-description: '岁月旅途除了荒凉，还是有太多事可拍掌。'
+description: '做技术，犹如修习一门武功'
 keywords:
 author: Seed-XL
 language: zh-CN
@@ -115,7 +115,7 @@ symbols_count_time:
   exclude_codeblock: false
 
 # Baidu Analytics ID
-baidu_analytics: ffd24f27718c3427c6d1a32fd5d479e2
+#baidu_analytics: ffd24f27718c3427c6d1a32fd5d479e2
 
 search:
   path: search.xml
