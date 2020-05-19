@@ -115,7 +115,7 @@ symbols_count_time:
   exclude_codeblock: false
 
 # Baidu Analytics ID
-#baidu_analytics: ffd24f27718c3427c6d1a32fd5d479e2
+baidu_analytics: 8dd3b58e1d53814d56487dc786e07bd3
 
 search:
   path: search.xml
