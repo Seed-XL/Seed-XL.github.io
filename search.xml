@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>LeetCode164 寻找峰值</title>
+    <title>LeetCode162 寻找峰值</title>
     <url>/2020/05/17/LeetCode-164-%E5%AF%BB%E6%89%BE%E5%B3%B0%E5%80%BC/</url>
     <content><![CDATA[<p><a href="https://leetcode-cn.com/problems/find-peak-element/" target="_blank" rel="noopener">题目原链接</a></p>
 <p>题目大意就是给出一个数组，然后寻找其中的一个峰值的下标索引。这里有一个值得注意的地方是，数组边界nums[0]和nums[n-1]也是可能成为峰值的，因为默认nums[-1]和nums[n]是无穷小。</p>
