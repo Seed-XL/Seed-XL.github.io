@@ -1,5 +1,5 @@
 ---
-title: LeetCode164 寻找峰值
+title: LeetCode162 寻找峰值
 date: 2020-05-17 17:24:17
 categories : Algorithm
 tags:
