@@ -98,3 +98,7 @@ public class Solution {
 }
 ```
 
+## 解题结果
+
+![result](https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200713004326.png)
+
