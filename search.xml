@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LeetCode754 到达终点数字</title>
+    <url>/2020/09/09/LeetCode754-%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在一根无限长的数轴上，你站在0的位置。终点在target的位置。</span><br><span class="line"></span><br><span class="line">每次你可以选择向左或向右移动。第 n 次移动（从 1 开始），可以走 n 步。</span><br><span class="line"></span><br><span class="line">返回到达终点需要的最小移动次数。</span><br><span class="line"></span><br><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: target &#x3D; 3</span><br><span class="line">输出: 2</span><br><span class="line">解释:</span><br><span class="line">第一次移动，从 0 到 1 。</span><br><span class="line">第二次移动，从 1 到 3 。</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: target &#x3D; 2</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line">第一次移动，从 0 到 1 。</span><br><span class="line">第二次移动，从 1 到 -1 。</span><br><span class="line">第三次移动，从 -1 到 2 。</span><br><span class="line">注意:</span><br><span class="line"></span><br><span class="line">target是在[-10^9, 10^9]范围中的非零整数。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;reach-a-number</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>初看这类题目，第一感觉就是递归回溯能够解决的，但是一般都会容易超时，而且这里要找回溯的条件也比较麻烦，就是什么时候需要该回溯？鉴于觉得递归回溯可能会超时，就没有往这个方向再细想了。</p>
+<p>于是再根据题目的意思分析一下：在每一步，我们既可以选择往左，也可以选择往右移动，那么每一步，我们都有两种选择，将这些选择可视化（<strong>走4步</strong>）之后，我们可以得到下面这幅图：</p>
+<pre class="mermaid">graph TD
+Node0(( 0 ))-->Node-1(( -1 ))
+Node0(( 0 ))-->Node1(( 1 ))
+
+Node-1(( -1 ))-->Node-3(( -3 ))
+Node-1(( -1 ))-->Node1L(( 1 ))
+Node1(( 1 ))-->Node-1R(( -1 ))
+Node1(( 1 ))-->Node3R(( 3 ))
+
+Node-3(( -3 ))-->Node-6L(( -6 ))
+Node-3(( -3 ))-->Node-0L(( 0 ))
+Node1L(( 1 ))-->Node-2L(( -2 ))
+Node1L(( 1 ))-->Node4L(( 4 ))
+Node-1R(( -1 ))-->Node-4R(( -4 ))
+Node-1R(( -1 ))-->Node2R(( 2 ))
+Node3R(( 3 ))-->Node40R(( 0 ))
+Node3R(( 3 ))-->Node46R(( 6 ))
+
+Node-6L(( -6 ))-->Node5-10L(( -10 ))
+Node-6L(( -6 ))-->Node5-2L(( -2 ))
+Node-0L(( 0 ))-->Node5-4L(( -4 ))
+Node-0L(( 0 ))-->Node54L(( 4 ))
+Node-2L(( -2 ))-->Node-65L(( -6 ))
+Node-2L(( -2 ))-->Node25L(( -2 ))
+Node4L(( 4 ))-->Node05L(( 0 ))
+Node4L(( 4 ))-->Node085L(( 8 ))
+
+Node-4R(( -4 ))-->Node-85R(( -8 ))
+Node-4R(( -4 ))-->Node05R(( 0 ))
+Node2R(( 2 ))-->Node-25R(( -2 ))
+Node2R(( 2 ))-->Node-65R(( 6 ))
+Node40R(( 0 ))-->Node-45R(( -4 ))
+Node40R(( 0 ))-->Node45R(( 4 ))
+Node46R(( 6 ))-->Node25R(( 2 ))
+Node46R(( 6 ))-->Node105R(( 10 ))</pre>
+
+
+
+<p>可以看到，这个按步数走下来的结果，得到的就是一棵完全二叉树，在第K步，也就是深度为k的时候，总共有 2^k个节点 。而每一个节点对应的，就是相应步数可能会走出来的终点坐标。那么按道理来说，只要遍历这些节点，找到等于终点坐标的数值的节点，而该节点所在的深度，就是所需要的步数。</p>
+<p>那么如何找到最少步数的节点呢 ？同样看上面那个图，最少步数的节点，必然是深度更小的节点，那么我们只需要按层遍历这棵树就好了，也就是用DFS来遍历就好了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">ReachNumber</span>(<span class="params"><span class="keyword">int</span> target</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Queue&lt;<span class="keyword">int</span>&gt; queue = <span class="keyword">new</span> Queue&lt;<span class="keyword">int</span>&gt;(<span class="number">10</span>)  ; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> curStep = <span class="number">0</span> ; </span><br><span class="line">        <span class="keyword">int</span> layerCnt = <span class="number">1</span> ; </span><br><span class="line"></span><br><span class="line">        queue.Enqueue(<span class="number">0</span>) ; </span><br><span class="line">        <span class="keyword">while</span>( queue.Count &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curNum = queue.Dequeue() ;</span><br><span class="line">            <span class="keyword">if</span>( curNum == target )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span> ; </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> tmpNextStep = curStep  ; </span><br><span class="line"></span><br><span class="line">            layerCnt--  ; </span><br><span class="line">            <span class="keyword">if</span>( layerCnt == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                curStep++ ; </span><br><span class="line">                layerCnt = (<span class="keyword">int</span>)Math.Pow(<span class="number">2</span>,curStep) ;    </span><br><span class="line"></span><br><span class="line">                tmpNextStep = curStep ;            </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                tmpNextStep = curStep + <span class="number">1</span> ;     </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            queue.Enqueue(curNum - tmpNextStep ) ; </span><br><span class="line">            queue.Enqueue(curNum + tmpNextStep ) ;    </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> curStep ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="解题结果"><a href="#解题结果" class="headerlink" title="解题结果"></a>解题结果</h2><p>上面的解题思路，其实也是一种遍历的思路，而且是按层遍历整棵树，那么它的复杂度是根据树的节点数上升的，O(2^k)，k为树的深度，显然当终点坐标的数值越来越大的时候，需要遍历节点的数目就会越来越多，因此当然就是不通过了。。。不过没想到的是，相对于超时，内存先爆了，看来这个节点数增加的非常厉害。</p>
+<p><img src="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200909231915.png" alt="解题结果"></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>LeetCode64 最小路径和</title>
     <url>/2020/07/15/LeetCode-64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
     <content><![CDATA[<p><a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">题目原链接</a></p>
