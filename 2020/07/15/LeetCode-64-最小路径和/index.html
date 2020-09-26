@@ -21,19 +21,19 @@
     var CONFIG = {"hostname":"seedxl.tech","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题目原链接 题目大意就是给出一个非负整数m x n的网络，找出从左上角到右下角，路径和为最小的数。 解题思路暴力递归回溯对于这类题目，第一反应就是暴力递归回溯法，这种方法遍历所有可行的情况，然后找出最少的和，但是稍微分析一下的话，就知道时间复杂度是O(2^(m+n))，肯定会超时，所以不予考虑，代码实现比较简单，这里也不贴出来了。  因为是从左上角到右下角，每次只能往下或者往右，那么无论怎么走，从">
+  <meta name="description" content="题目123456789101112131415161718给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。说明：每次只能向下或者向右移动一步。示例:输入:[  [1,3,1],  [1,5,1],  [4,2,1]]输出: 7解释: 因为路径 1→3→1→1→1 的总和最小。来源：力扣（LeetCode）链接：https:&#x2F;&amp;#x2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode64 最小路径和">
 <meta property="og:url" content="http://seedxl.tech/2020/07/15/LeetCode-64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/index.html">
 <meta property="og:site_name" content="Seed-XL的自留地">
-<meta property="og:description" content="题目原链接 题目大意就是给出一个非负整数m x n的网络，找出从左上角到右下角，路径和为最小的数。 解题思路暴力递归回溯对于这类题目，第一反应就是暴力递归回溯法，这种方法遍历所有可行的情况，然后找出最少的和，但是稍微分析一下的话，就知道时间复杂度是O(2^(m+n))，肯定会超时，所以不予考虑，代码实现比较简单，这里也不贴出来了。  因为是从左上角到右下角，每次只能往下或者往右，那么无论怎么走，从">
+<meta property="og:description" content="题目123456789101112131415161718给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。说明：每次只能向下或者向右移动一步。示例:输入:[  [1,3,1],  [1,5,1],  [4,2,1]]输出: 7解释: 因为路径 1→3→1→1→1 的总和最小。来源：力扣（LeetCode）链接：https:&#x2F;&amp;#x2">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200720003640.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200720003938.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200720011124.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200720004235.png">
 <meta property="article:published_time" content="2020-07-15T15:45:21.000Z">
-<meta property="article:modified_time" content="2020-09-20T16:25:08.634Z">
+<meta property="article:modified_time" content="2020-09-26T12:55:15.677Z">
 <meta property="article:author" content="Seed-XL">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Algorithm">
@@ -148,7 +148,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">5</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">6</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -239,7 +239,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-21 00:25:08" itemprop="dateModified" datetime="2020-09-21T00:25:08+08:00">2020-09-21</time>
+                <time title="修改时间：2020-09-26 20:55:15" itemprop="dateModified" datetime="2020-09-26T20:55:15+08:00">2020-09-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,14 +280,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.1k</span>
+              <span>9.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -299,9 +299,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">题目原链接</a></p>
+        <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</span><br><span class="line"></span><br><span class="line">说明：每次只能向下或者向右移动一步。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [1,3,1],</span><br><span class="line">  [1,5,1],</span><br><span class="line">  [4,2,1]</span><br><span class="line">]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 因为路径 1→3→1→1→1 的总和最小。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;minimum-path-sum</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">题目原链接</a></p>
 <p>题目大意就是给出一个非负整数m x n的网络，找出从左上角到右下角，路径和为最小的数。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="暴力递归回溯"><a href="#暴力递归回溯" class="headerlink" title="暴力递归回溯"></a>暴力递归回溯</h3><p>对于这类题目，第一反应就是暴力递归回溯法，这种方法遍历所有可行的情况，然后找出最少的和，但是稍微分析一下的话，就知道时间复杂度是O(2^(m+n))，肯定会超时，所以不予考虑，代码实现比较简单，这里也不贴出来了。</p>
+<h3 id="暴力递归回溯"><a href="#暴力递归回溯" class="headerlink" title="暴力递归回溯"></a>暴力递归回溯</h3><p>对于这类题目，第一反应就是暴力递归回溯法，这种方法遍历所有可行的情况，然后找出最少的和，但是稍微分析一下的话，就知道时间复杂度是O(2^(m+n))，肯定会超时，所以不予考虑，代码实现比较简单，这里也不贴出来了。</p>
 <blockquote>
 <p>因为是从左上角到右下角，每次只能往下或者往右，那么无论怎么走，从左上角到右下角，都要进行<br>(m - 1) + (n-1)次选择（将行和列拆分来看，按行走，需要走m-1次，按列走，需要走n-1次)。而又因为每次进行选择的时候，都只能往下或者往右走，那每次选择都2种不同走向，于是就有：O(2^(m+n))，这就是所有可能的情况的数量。</p>
 </blockquote>
@@ -420,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力递归回溯"><span class="nav-number">1.1.</span> <span class="nav-text">暴力递归回溯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单源最短路径"><span class="nav-number">1.2.</span> <span class="nav-text">单源最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.1.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.3.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归解法"><span class="nav-number">1.3.1.</span> <span class="nav-text">递归解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码实现-1"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解题结果"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">解题结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代解法"><span class="nav-number">1.3.2.</span> <span class="nav-text">迭代解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码实现-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解题结果-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">解题结果</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力递归回溯"><span class="nav-number">2.</span> <span class="nav-text">暴力递归回溯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单源最短路径"><span class="nav-number">3.</span> <span class="nav-text">单源最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">3.1.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">4.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归解法"><span class="nav-number">4.1.</span> <span class="nav-text">递归解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码实现-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解题结果"><span class="nav-number">4.1.2.</span> <span class="nav-text">解题结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代解法"><span class="nav-number">4.2.</span> <span class="nav-text">迭代解法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码实现-2"><span class="nav-number">4.2.1.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解题结果-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">解题结果</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -436,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -483,12 +485,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">22k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15 分钟</span>
+    <span title="站点阅读时长">20 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>

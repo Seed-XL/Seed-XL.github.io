@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"seedxl.tech","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题目描述题目原链接 12345678910111213141516171819给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。你的目标是使用最少的跳跃次数到达数组的最后一个位置。示例:输入: [2,3,1,1,4]输出: 2解释: 跳到最后一个位置的最小跳跃数是 2。     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode45 跳跃游戏">
+<meta property="og:url" content="http://seedxl.tech/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:site_name" content="Seed-XL的自留地">
+<meta property="og:description" content="题目描述题目原链接 12345678910111213141516171819给定一个非负整数数组，你最初位于数组的第一个位置。数组中的每个元素代表你在该位置可以跳跃的最大长度。你的目标是使用最少的跳跃次数到达数组的最后一个位置。示例:输入: [2,3,1,1,4]输出: 2解释: 跳到最后一个位置的最小跳跃数是 2。     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926215220.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926215029.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926220447.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926222145.png">
+<meta property="article:published_time" content="2020-09-26T12:47:17.000Z">
+<meta property="article:modified_time" content="2020-09-26T14:32:56.471Z">
+<meta property="article:author" content="Seed-XL">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926215220.png">
+
+<link rel="canonical" href="http://seedxl.tech/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>LeetCode45 跳跃游戏 | Seed-XL的自留地</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8dd3b58e1d53814d56487dc786e07bd3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Seed-XL的自留地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">1</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://seedxl.tech/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://pic4.zhimg.com/v2-71a355ec684c2ab02e5a97ccafb9f4ad_xl.jpg">
+      <meta itemprop="name" content="Seed-XL">
+      <meta itemprop="description" content="做技术，犹如修习一门武功">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Seed-XL的自留地">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode45 跳跃游戏
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-26 20:47:17 / 修改时间：22:32:56" itemprop="dateCreated datePublished" datetime="2020-09-26T20:47:17+08:00">2020-09-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode45 跳跃游戏" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/26/LeetCode45-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="https://leetcode-cn.com/problems/jump-game-ii/" target="_blank" rel="noopener">题目原链接</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">给定一个非负整数数组，你最初位于数组的第一个位置。</span><br><span class="line"></span><br><span class="line">数组中的每个元素代表你在该位置可以跳跃的最大长度。</span><br><span class="line"></span><br><span class="line">你的目标是使用最少的跳跃次数到达数组的最后一个位置。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: [2,3,1,1,4]</span><br><span class="line">输出: 2</span><br><span class="line">解释: 跳到最后一个位置的最小跳跃数是 2。</span><br><span class="line">     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">假设你总是可以到达数组的最后一个位置。</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;jump-game-ii</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>如下图，这一题和之前做过的<a href="http://seedxl.tech/2020/09/09/LeetCode754-%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9%E6%95%B0%E5%AD%97/">LeetCode754-到达终点数字</a>有点类似，就是从起点出发到终点，有很多种不同的走法，然后需要找出一个最优的走沙。如果单纯只是为了解这道题的话，可以用DFS遍历所有可能的路径，然后再找出最少的步数。但是这个方法过于暴力，而且就像754那道题一样，需要遍历路径树的所有结点，时间复杂度会很高。而且就和那道题一样，对于这类在众多路径之中，找最少/最近/最短的路径，BFS算法天然的契合，如果每一层的结点不是那么多的话，BFS应该是可以通过的，所以决定先用BFS试试下。</p>
+<pre class="mermaid">graph TD
+layer1_node2((2))-->layer2_node3((3))
+layer1_node2((2))-->layer2_node1((1))
+
+layer2_node3((3))-->layer3_node1((1))
+layer2_node3((3))-->layer3_node1_2((1))
+layer2_node3((3))-->layer3_node4((4))
+
+layer2_node1((1))-->layer3_node1_1((1))
+
+layer3_node1((1))-->layer4_node1((1))
+layer3_node1_2((1))-->layer4_node4((4))
+
+layer3_node1_1((1))-->layer4_node4_3((4))
+
+layer4_node1((1))-->layer5_node4((4))</pre>
+
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[2,3,1,1,4]</span></span><br><span class="line"><span class="comment">[1]</span></span><br><span class="line"><span class="comment">[0]</span></span><br><span class="line"><span class="comment">[1,1]</span></span><br><span class="line"><span class="comment">[1,2,1]</span></span><br><span class="line"><span class="comment">[1,1,1]</span></span><br><span class="line"><span class="comment">[1,2,0,1,1]</span></span><br><span class="line"><span class="comment">[1,4,0,0,0,2,1,3,0,0,0]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Jump</span>(<span class="params"><span class="keyword">int</span>[] nums</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.Length &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> ; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//按层遍历的队列</span></span><br><span class="line">        Queue&lt;<span class="keyword">int</span>&gt; waitProcess = <span class="keyword">new</span> Queue&lt;<span class="keyword">int</span>&gt;(<span class="number">100</span>)  ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//当前正在遍历的层的节点数目</span></span><br><span class="line">        <span class="keyword">int</span> curLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        <span class="comment">//下一层有多少的节点需要遍历</span></span><br><span class="line">        <span class="keyword">int</span> nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        <span class="keyword">int</span> stepCnt = <span class="number">0</span> ;  <span class="comment">//有多少层，就代表现在走到第几步</span></span><br><span class="line">        <span class="keyword">int</span> finalPosIdx = nums.Length - <span class="number">1</span> ; </span><br><span class="line">        <span class="keyword">int</span> totalNums = nums.Length ;</span><br><span class="line"></span><br><span class="line">        waitProcess.Enqueue(<span class="number">0</span>) ; </span><br><span class="line">        curLayerCnt++  ; </span><br><span class="line">        nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        stepCnt++  ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>( waitProcess.Count &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curStepIdx = waitProcess.Dequeue() ; </span><br><span class="line">            <span class="keyword">int</span> curIdxMaxStep = nums[curStepIdx]  ; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( curStepIdx + curIdxMaxStep &gt;= finalPosIdx )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = curStepIdx + <span class="number">1</span> ;</span><br><span class="line">              i &lt;= (curStepIdx + curIdxMaxStep) &amp;&amp; i &lt; totalNums &amp;&amp; curIdxMaxStep != <span class="number">0</span>  ;</span><br><span class="line">              ++i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//遍历到数组第i个结点，它最大可以走nums[i]的长度，所以它下面总共有nums[i]的结点可以尝试，也就是下一层需要加这么多的结点  </span></span><br><span class="line">                waitProcess.Enqueue(i)  ;</span><br><span class="line">                nextLayerCnt++ ;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            curLayerCnt-- ; </span><br><span class="line">            <span class="keyword">if</span>( curLayerCnt == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//如果目前所处在的层的结点都遍历完了，还没有到达目的地，就要再走一步试试。</span></span><br><span class="line">                stepCnt++  ;</span><br><span class="line">                curLayerCnt = nextLayerCnt ; </span><br><span class="line">                nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stepCnt ; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解题结果"><a href="#解题结果" class="headerlink" title="解题结果"></a>解题结果</h3><p><img src="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926215220.png" alt="BFS按层遍历"></p>
+<p>很可惜，超时了，看起来按层遍历的方法，所遍历到的节点数目仍然是非常多。那么有没有办法可以优化一下呢？例如减少一下需要遍历的节点数目？</p>
+<p>来分析一下，我们是不是需要将每一层的所有节点都尝试走一下呢? </p>
+<p>拿题目的输入数据<strong>[2,3,1,1,4]</strong>来举例，对于同样从<strong>起点2</strong>出发而来的第2层的<strong>节点3</strong>和<strong>节点1</strong>来说，是不是都需要尝试遍历一下呢。显然不是，处在同一层的<strong>节点3</strong>，它可以走的路径之中，本身就包含了从<strong>节点1</strong>出发的路径，所以我们可以进去<strong>剪枝</strong></p>
+<p><img src="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926215029.png" alt="剪枝"></p>
+<p>那么<strong>剪枝</strong>的基准是什么呢？我们想要做的是，走过的路径不重复走，而根据题目的描述，<strong>nums[i]</strong>代表的是从<strong>i</strong>所处的位置，可以最大走<strong>nums[i]</strong>步，也就是说<strong>nums[i]</strong>代表的是一个<strong>[i,nums[i]]</strong>的区间，那我们去重要做的就是<strong>只遍历右闭区间中下标最大那个的区间</strong>，其余的区间不再遍历，因为其可能可以走的下标 ，都已经被下标最大的那个区间包含在其中了。</p>
+<h2 id="剪枝后的代码实现"><a href="#剪枝后的代码实现" class="headerlink" title="剪枝后的代码实现"></a>剪枝后的代码实现</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[2,3,1,1,4]</span></span><br><span class="line"><span class="comment">[1]</span></span><br><span class="line"><span class="comment">[0]</span></span><br><span class="line"><span class="comment">[1,1]</span></span><br><span class="line"><span class="comment">[1,2,1]</span></span><br><span class="line"><span class="comment">[1,1,1]</span></span><br><span class="line"><span class="comment">[1,2,0,1,1]</span></span><br><span class="line"><span class="comment">[1,4,0,0,0,2,1,3,0,0,0]</span></span><br><span class="line"><span class="comment">[4,6,5,4,3,0,0,1]</span></span><br><span class="line"><span class="comment">[10,9,8,7,6,5,4,3,2,1,1,0]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Jump</span>(<span class="params"><span class="keyword">int</span>[] nums</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.Length &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> ; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;<span class="keyword">int</span>&gt; waitProcess = <span class="keyword">new</span> Queue&lt;<span class="keyword">int</span>&gt;(<span class="number">100</span>)  ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> curLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        <span class="keyword">int</span> nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        <span class="keyword">int</span> stepCnt = <span class="number">0</span> ;  </span><br><span class="line">        <span class="keyword">int</span> finalPosIdx = nums.Length - <span class="number">1</span> ; </span><br><span class="line">        <span class="keyword">int</span> totalNums = nums.Length ;</span><br><span class="line"></span><br><span class="line">         </span><br><span class="line">        waitProcess.Enqueue(<span class="number">0</span>) ; </span><br><span class="line">        curLayerCnt++  ; </span><br><span class="line">        nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">        stepCnt++  ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>( waitProcess.Count &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> curStepIdx = waitProcess.Dequeue() ; </span><br><span class="line">            <span class="keyword">int</span> curIdxMaxStep = nums[curStepIdx]  ; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>( curStepIdx + curIdxMaxStep &gt;= finalPosIdx )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> nextMaxStepIdx = <span class="number">-1</span> ; </span><br><span class="line">            <span class="keyword">int</span> nextMaxStep = <span class="number">-1</span> ; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = curStepIdx + <span class="number">1</span> ;</span><br><span class="line">              i &lt;= (curStepIdx + curIdxMaxStep) &amp;&amp; i &lt; totalNums &amp;&amp; curIdxMaxStep != <span class="number">0</span>  ;</span><br><span class="line">              ++i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> maxStep = nums[i] + i ;</span><br><span class="line">                <span class="keyword">if</span>( maxStep &gt;= nextMaxStep )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//剪枝，只保留可以走到最远的那个结点</span></span><br><span class="line">                    nextMaxStepIdx = i ; </span><br><span class="line">                    nextMaxStep = maxStep  ; </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(  nextMaxStepIdx != <span class="number">-1</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                waitProcess.Enqueue(nextMaxStepIdx)  ;</span><br><span class="line">                nextLayerCnt++ ;         </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            curLayerCnt-- ; </span><br><span class="line">            <span class="keyword">if</span>( curLayerCnt == <span class="number">0</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                stepCnt++  ;</span><br><span class="line">                curLayerCnt = nextLayerCnt ; </span><br><span class="line">                nextLayerCnt = <span class="number">0</span> ; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> stepCnt ; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解题结果-1"><a href="#解题结果-1" class="headerlink" title="解题结果"></a>解题结果</h3><p><img src="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926220447.png" alt="通过"></p>
+<h2 id="换一个角度"><a href="#换一个角度" class="headerlink" title="换一个角度"></a>换一个角度</h2><p>正如前面提到<strong>nums[i]</strong>代表的是一个<strong>区间</strong>，而从起点到终点的过程，就是一个<strong>区间</strong>与<strong>区间</strong>的连接过程：</p>
+<pre class="mermaid">graph LR
+
+nums2((2))---nums3((3))---nums1((1))---nums1_1((1))---nums4((4))
+nums2((2))==>nums1((1))
+nums3((3))==>nums4((4))
+nums1((1))==>nums1_1((1))</pre>
+
+<p>那么从这个角度来分析的话，最少步数到达终点其实就是找最少的重叠区间，直到包含终点，而这一种解法和按层遍历的方式类似，也是需要找到一个下标最远的区间作为下一次遍历的起点，因为下标最远的区间，也是包括了其它更小的区间可能走的路径，因为也是通过这种方式来去重。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[2,3,1,1,4]</span></span><br><span class="line"><span class="comment">[1]</span></span><br><span class="line"><span class="comment">[0]</span></span><br><span class="line"><span class="comment">[1,1]</span></span><br><span class="line"><span class="comment">[1,2,1]</span></span><br><span class="line"><span class="comment">[1,1,1]</span></span><br><span class="line"><span class="comment">[1,2,0,1,1]</span></span><br><span class="line"><span class="comment">[1,4,0,0,0,2,1,3,0,0,0]</span></span><br><span class="line"><span class="comment">[4,6,5,4,3,0,0,1]</span></span><br><span class="line"><span class="comment">[10,9,8,7,6,5,4,3,2,1,1,0]</span></span><br><span class="line"><span class="comment">[2,1,3,0,0,0]</span></span><br><span class="line"><span class="comment">[7,0,0,1,5,6,5,1,3,5,0,7,5]</span></span><br><span class="line"><span class="comment">[2,2,0,1]</span></span><br><span class="line"><span class="comment">[2,0,8,0,3,4,7,5,6,1,0,0,5,9,7,5]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Jump</span>(<span class="params"><span class="keyword">int</span>[] nums</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>( nums.Length &lt;= <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span> ; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> stepCnt = <span class="number">0</span> ;  </span><br><span class="line">        <span class="keyword">int</span> finalPosIdx = nums.Length - <span class="number">1</span> ;</span><br><span class="line">        <span class="keyword">int</span> tCurPos = <span class="number">0</span> ; </span><br><span class="line">        <span class="keyword">int</span> curPosMaxStep = nums[tCurPos]  ; </span><br><span class="line">        <span class="keyword">while</span>( ++stepCnt &gt; <span class="number">0</span> &amp;&amp; (tCurPos + curPosMaxStep &lt; finalPosIdx) )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> nextStepPos = <span class="number">-1</span> ; </span><br><span class="line">            <span class="keyword">int</span> nextMaxStep = <span class="number">-1</span> ; </span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> i = tCurPos + <span class="number">1</span> ; i &lt;= (tCurPos + curPosMaxStep) ; ++i )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> maxStep = nums[i] + i ;</span><br><span class="line">                <span class="keyword">if</span>( maxStep &gt;= nextMaxStep )</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//这个区间包含的下标最远</span></span><br><span class="line">                    nextStepPos = i ; </span><br><span class="line">                    nextMaxStep = maxStep  ; </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            tCurPos = nextStepPos ; </span><br><span class="line">            curPosMaxStep = nums[tCurPos] ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> stepCnt ; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="解题结果-2"><a href="#解题结果-2" class="headerlink" title="解题结果"></a>解题结果</h3><p><img src="https://raw.githubusercontent.com/Seed-XL/ArticlePicture/master/20200926222145.png" alt="区间的解题结果"></p>
+<h2 id="动态规划？"><a href="#动态规划？" class="headerlink" title="动态规划？"></a>动态规划？</h2><p>当用<strong>按层遍历</strong>的解法不通过的时候，已经想到很有可能是需要使用的动态规划的解法，但是想破头了只是有个简单的想法：<br>$$<br>当nusm[i]+1可以到达终点时有：<br>s[i] = 1<br>$$</p>
+<p>$$<br>当nums[i]+1到达不了终点时有：<br>s[i] = s[i,nums[i]] + 1<br>$$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/09/LeetCode754-%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9%E6%95%B0%E5%AD%97/" rel="prev" title="LeetCode754 到达终点数字">
+      <i class="fa fa-chevron-left"></i> LeetCode754 到达终点数字
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解题结果"><span class="nav-number">3.1.</span> <span class="nav-text">解题结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#剪枝后的代码实现"><span class="nav-number">4.</span> <span class="nav-text">剪枝后的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解题结果-1"><span class="nav-number">4.1.</span> <span class="nav-text">解题结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换一个角度"><span class="nav-number">5.</span> <span class="nav-text">换一个角度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-1"><span class="nav-number">5.1.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题结果-2"><span class="nav-number">5.2.</span> <span class="nav-text">解题结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划？"><span class="nav-number">6.</span> <span class="nav-text">动态规划？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Seed-XL"
+      src="https://pic4.zhimg.com/v2-71a355ec684c2ab02e5a97ccafb9f4ad_xl.jpg">
+  <p class="site-author-name" itemprop="name">Seed-XL</p>
+  <div class="site-description" itemprop="description">做技术，犹如修习一门武功</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Seed-XL</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">22k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i>
+<span id="busuanzi_container_site_uv">
+  本站总访客数:<span id="busuanzi_value_site_uv"></span>&nbsp;&nbsp;| 
+</span>
+<span id="busuanzi_container_site_pv">
+    &nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+</div>
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'neutral',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'mEU8TdBnqogD6TAXuFnkHGMW-gzGzoHsz',
+      appKey     : 'rx8lFKVKzzXpT6xx1wEORX8b',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
